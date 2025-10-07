@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.1'
+        maven 'Maven 3.8.1'      // Make sure this Maven version exists in Jenkins
+        git 'Default'            // Git installation name configured in Jenkins
     }
 
     environment {
@@ -12,7 +13,9 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/sharanyakatna/sample-java-app.git'
+                git branch: 'main',
+                    url: 'https://github.com/sharanyakatna/sample-java-app.git',
+                    credentialsId: '0189b9e1-87ca-4e52-83ae-605ba65d5ba0' // Your GitHub PAT credential ID
             }
         }
         stage('Build with Maven') {
